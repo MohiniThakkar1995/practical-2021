@@ -1,18 +1,26 @@
-package com.example.practical.network
 
+
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.example.practical.BuildConfig
+import androidx.multidex.BuildConfig
+import com.example.demomvvm.Utils.Utils
 import com.example.practical.R
-import com.example.practical.listener.DefaultActionPerformer
-import com.example.practical.listener.NoInternetListner
-import com.example.practical.listener.RetrofitRawResponseListener
-import com.example.practical.listener.RetrofitResponseListener
+import com.example.practical.demomvvm.network.ApiInterface
+import com.example.practical.demomvvm.network.listeners.DefaultActionPerformer
+import com.example.practical.demomvvm.network.listeners.NoInternetListner
+import com.example.practical.demomvvm.network.listeners.RetrofitRawResponseListener
+import com.example.practical.demomvvm.network.listeners.RetrofitResponseListener
 import com.google.android.material.snackbar.Snackbar
+
+
+
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -27,7 +35,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.IOException
+import java.util.*
 import java.util.concurrent.TimeUnit
+
 
 class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
 
@@ -67,7 +77,6 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
             val activeNetwork = connectivity.activeNetworkInfo
             return activeNetwork != null && activeNetwork.isAvailable && activeNetwork.isConnected
         }
-
     private//.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     val instance: ApiInterface
@@ -362,7 +371,7 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
         printBuilder.append("\n\nResponse\n")
         printBuilder.append("Call to the API Failed")
         printBuilder.append("\n\nThank you\n\n")
-//        copyToClipBoard()
+        copyToClipBoard()
     }
     private fun handleResponse(response: Response<ResponseBody>) {
         if (response.code() == 401) {
@@ -379,7 +388,7 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
                 printBuilder.append(body)
                 printBuilder.append("\n\n Thank you\n\n")
 
-//                copyToClipBoard()
+                copyToClipBoard()
 
                 val jsonObject = JSONObject(body)
 
@@ -408,7 +417,7 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
                 printBuilder.append("\n\nResponse\n")
                 printBuilder.append(body)
                 printBuilder.append("\n\nThank you\n\n")
-//                copyToClipBoard()
+                copyToClipBoard()
 
                 var message = defaultMessageError
 
@@ -474,7 +483,7 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
         }
     }
 
-  /*  private fun copyToClipBoard() {
+    private fun copyToClipBoard() {
         if (isDubuggable) {
             val clipboard =
                 mContext!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -482,7 +491,7 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
             assert(clipboard != null)
             clipboard.setPrimaryClip(clip)
         }
-    }*/
+    }
     fun setCustomBaseURL(customBaseURL: String): NetworkCall {
         this.customBaseURL = customBaseURL
         return this
@@ -506,7 +515,7 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
         const val REQUEST_TYPE_GET = 1
         const val REQUEST_TYPE_POST = 0
 
-        private var BASE_URL = BuildConfig.FLAVOR// this will be affected by flavor in gradle
+        private var BASE_URL = "http://sd2-hiring.herokuapp.com/" // this will be affected by flavor in gradle
 
         private var actionPerformer: DefaultActionPerformer? = null
         private var isDubuggable = false
@@ -532,3 +541,6 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
         }
     }
 }
+
+
+

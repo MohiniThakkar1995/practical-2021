@@ -1,4 +1,4 @@
-package com.example.practical.demomvvm.users.rowadapter
+package com.example.practical.demomvvm.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,13 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.practical.databinding.RowImageBinding
 import com.example.practical.databinding.RowProgressbarBinding
-import com.example.practical.databinding.RowUserListBinding
 
 import com.example.practical.demomvvm.base.BaseRecyclerViewAdapter
 import com.example.practical.demomvvm.base.BaseViewHolder
-
-
-class RowAdapter(val context: Context, rv: RecyclerView) :
+class RowAdapter(val context: Context, rv: RecyclerView, val items : ArrayList<String>) :
     BaseRecyclerViewAdapter<BaseViewHolder, com.example.practical.demomvvm.model.Image>(rv) {
     private val viewItem = 1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -55,8 +52,10 @@ class RowAdapter(val context: Context, rv: RecyclerView) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        val viewProgress = 0
-        val model = list[position]
-        return if (model != null) viewItem else viewProgress
+        val model = items[position]
+        return viewItem
+    }
+    override fun getItemCount(): Int {
+        return items.size
     }
 }

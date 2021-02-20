@@ -3,7 +3,7 @@ package com.example.demomvvm
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class USERS(
+data class Users(
     @SerializedName("name")
     val name: String = "",
     @SerializedName("image")

@@ -25,7 +25,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.base.BAS.BaseNavigator
-import com.demotoro.utils.CommonUtils
 import com.example.demomvvm.AppClass
 import com.example.practical.R
 import com.google.android.material.snackbar.Snackbar

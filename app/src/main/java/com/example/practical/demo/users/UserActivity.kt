@@ -13,11 +13,12 @@ import com.example.practical.BR
 import com.example.practical.R
 import com.example.practical.databinding.ActivityUsersBinding
 import com.example.practical.demomvvm.ViewModelProviderFactory
+import com.example.practical.demomvvm.adapter.UsersListAdapter
 import com.example.practical.demomvvm.base.BaseActivity
+import com.example.practical.demomvvm.base.BaseRecyclerViewAdapter
 
-
+//implement all common functions in base activity, and extends it
 class UserActivity : BaseActivity<ActivityUsersBinding, UsersViewModel>(), BaseNavigator {
-
     override val viewModel: UsersViewModel
         get() = ViewModelProvider(
             this,
@@ -30,6 +31,7 @@ class UserActivity : BaseActivity<ActivityUsersBinding, UsersViewModel>(), BaseN
 
     var adapter: UsersListAdapter? = null
 
+    //    initialization
     override fun initialization(savedInstance: Bundle?) {
 
         viewModel.navigator = this
@@ -40,8 +42,10 @@ class UserActivity : BaseActivity<ActivityUsersBinding, UsersViewModel>(), BaseN
 
         populateData()
     }
+
+    //    observe list and populate data on recyclerview
     private fun populateData() {
-        viewModel.faqList.observe(this, Observer {
+        viewModel.userList.observe(this, Observer {
             adapter!!.list = it
             if (it.size > 0) {
                 viewDataBinding!!.rvFaqList.visibility = View.VISIBLE
@@ -52,33 +56,27 @@ class UserActivity : BaseActivity<ActivityUsersBinding, UsersViewModel>(), BaseN
             }
         })
     }
+
+    //    setup recyclerview
     private fun setUpRecyclerView() {
         viewDataBinding!!.rvFaqList.layoutManager = LinearLayoutManager(this@UserActivity)
-        adapter = UsersListAdapter(this@UserActivity, viewDataBinding!!.rvFaqList)
+        adapter = UsersListAdapter(
+            this@UserActivity,
+            viewDataBinding!!.rvFaqList
+        )
         viewDataBinding!!.rvFaqList.adapter = adapter
-    }
-    companion object {
-        fun newIntent(context: Context, isFinish: Boolean): Intent {
-            val intent = Intent(context, UserActivity::class.java)
-            if (isFinish)
-                intent.flags =
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
 
-            return intent
+        adapter!!.onLoadMoreListener = object : BaseRecyclerViewAdapter.OnLoadMoreListener {
+
+            override fun onLoadMore() {
+                if (viewModel.isLast.get() != 1) {
+                    viewModel.start.set(viewModel.start.get() + 10)
+                    viewModel.userList.value!!.add(null)
+                    adapter!!.notifyItemInserted(viewModel.userList.value!!.size - 1)
+                    viewModel.apiGetUsersList()
+                }
+            }
         }
     }
-    override fun showSnackBar(message: String, isError: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    override fun showAlert(title: String, msg: String?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun gotoLogin() {
-        TODO("Not yet implemented")
-    }
-
-
 
 }

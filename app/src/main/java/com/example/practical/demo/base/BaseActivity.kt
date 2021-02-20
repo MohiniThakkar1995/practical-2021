@@ -29,10 +29,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.base.BAS.BaseNavigator
-import com.demotoro.utils.CommonUtils
 import com.example.demomvvm.AppClass
 import com.example.practical.R
-import com.showaikh.driver.ui.base.BaseViewModel
 
 
 abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppCompatActivity(),
@@ -306,9 +304,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
         }
     }
 
-    override fun finishActivity() {
-        finish()
-    }
+
 
 
     fun requestAppPermissions(
@@ -398,7 +394,6 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
 
     }
-
 
     private class SessionExpiredBroadcastReceiver : BroadcastReceiver() {
         private var listener: BaseActivity<*, *>? = null

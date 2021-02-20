@@ -3,4 +3,7 @@
     <string name="str_something_went_wrong">Something Went Wrong</string>
     <string name="str_no_internet">No internet</string>
     <string name="str_session_expried_msg">Session Expired</string>
+    <string name="need_permission">Need Permission</string>
+    <string name="app_settings">Settings</string>
+    <string name="cancel">Cancel</string>
 </resources>

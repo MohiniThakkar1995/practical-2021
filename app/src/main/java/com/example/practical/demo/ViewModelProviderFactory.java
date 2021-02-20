@@ -1,4 +1,4 @@
-package com.example.practical.demomvvm;
+package com.example.practical.demo;
 
 
 import androidx.annotation.NonNull;
