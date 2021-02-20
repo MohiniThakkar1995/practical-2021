@@ -7,15 +7,16 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:padding="@dimen/item_offset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivUserImage"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp" />
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvUserName"
@@ -33,6 +34,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:padding="@dimen/item_offset"
                 android:id="@+id/ivOddFirst"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_300sdp" />

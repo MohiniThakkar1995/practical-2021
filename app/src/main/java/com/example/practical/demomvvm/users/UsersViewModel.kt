@@ -29,7 +29,8 @@ class UsersViewModel(app: AppClass) : BaseViewModel<BaseNavigator>(app) {
 
         NetworkCall.with(appContext)
             .setCustomBaseURL("http://sd2-hiring.herokuapp.com/")
-            .setRequestParams(params)
+            .setRequestType(1)
+//            .setRequestParams(params)
             .setEndPoint(API_END_POINTS.GET_USER_LIST)
             .setResponseListener(object : RetrofitResponseListener {
 
@@ -42,7 +43,9 @@ class UsersViewModel(app: AppClass) : BaseViewModel<BaseNavigator>(app) {
                     navigator?.hideLoading()
                     if (start.get() == 0) {
                         mArrUserList.clear()
-                        userList.value!!.clear()
+                        try{
+                            userList.value!!.clear()
+                        }catch (e : Exception){}
                     }
                     val temp: ArrayList<Users> = Gson().fromJson(
                         jsonObject.optJSONArray("users")!!.toString(),

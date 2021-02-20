@@ -30,11 +30,5 @@ abstract class BaseService<V: BaseViewModel<*>> : Service(), BaseNavigator {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showAlert(title: String, msg: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun gotoLogin() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

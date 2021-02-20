@@ -48,10 +48,10 @@ class UserActivity : BaseActivity<ActivityUsersBinding, UsersViewModel>(), BaseN
         viewModel.userList.observe(this, Observer {
             adapter!!.list = it
             if (it.size > 0) {
-                viewDataBinding!!.rvFaqList.visibility = View.VISIBLE
+                viewDataBinding!!.rvUserList.visibility = View.VISIBLE
                 viewDataBinding!!.tvNoDataFound.visibility = View.GONE
             } else {
-                viewDataBinding!!.rvFaqList.visibility = View.GONE
+                viewDataBinding!!.rvUserList.visibility = View.GONE
                 viewDataBinding!!.tvNoDataFound.visibility = View.VISIBLE
             }
         })
@@ -59,12 +59,13 @@ class UserActivity : BaseActivity<ActivityUsersBinding, UsersViewModel>(), BaseN
 
     //    setup recyclerview
     private fun setUpRecyclerView() {
-        viewDataBinding!!.rvFaqList.layoutManager = LinearLayoutManager(this@UserActivity)
+        viewDataBinding!!.rvUserList.layoutManager = LinearLayoutManager(this@UserActivity)
         adapter = UsersListAdapter(
             this@UserActivity,
-            viewDataBinding!!.rvFaqList
+            viewDataBinding!!.rvUserList
         )
-        viewDataBinding!!.rvFaqList.adapter = adapter
+        viewDataBinding!!.rvUserList.adapter = adapter
+
 
         adapter!!.onLoadMoreListener = object : BaseRecyclerViewAdapter.OnLoadMoreListener {
 

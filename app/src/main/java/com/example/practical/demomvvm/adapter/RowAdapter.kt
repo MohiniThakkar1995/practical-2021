@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.practical.databinding.RowImageBinding
 import com.example.practical.databinding.RowProgressbarBinding
 
+
 import com.example.practical.demomvvm.base.BaseRecyclerViewAdapter
 import com.example.practical.demomvvm.base.BaseViewHolder
 class RowAdapter(val context: Context, rv: RecyclerView, val items : ArrayList<String>) :
@@ -35,10 +36,10 @@ class RowAdapter(val context: Context, rv: RecyclerView, val items : ArrayList<S
         BaseViewHolder(itemBinding!!.root) {
 
         override fun onBind(position: Int) {
-            val model = list[position]
+            val model = items[position]
             Glide
                 .with(context)
-                .load(model!!.imageUrl)
+                .load(items!![position])
                 .centerCrop()
                 .into(itemBinding!!.ivImage)
         }

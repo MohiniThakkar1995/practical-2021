@@ -269,23 +269,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragmen
         }
     }
 
-    override fun finishActivity() {
-        activity!!.finish()
-    }
-
-    override fun gotoLogin() {
-        baseActivity?.finish()
-        /* val intent = LoginActivity.newIntent(mContext).apply {
-
-             flags = Intent.FLAG_ACTIVITY_NEW_TASK
-             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-         }
-
-         startActivity(intent)*/
-
-    }
-
     fun hasGPSDevice(context: Context): Boolean {
         val mgr = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager ?: return false
         val providers = mgr.allProviders ?: return false

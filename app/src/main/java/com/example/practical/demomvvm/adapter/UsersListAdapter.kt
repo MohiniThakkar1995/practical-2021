@@ -1,18 +1,25 @@
 package com.example.practical.demomvvm.adapter
 
+
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.example.demomvvm.Users
+import com.example.practical.R
 import com.example.practical.databinding.RowProgressbarBinding
 import com.example.practical.databinding.RowUserListBinding
-
 import com.example.practical.demomvvm.base.BaseRecyclerViewAdapter
 import com.example.practical.demomvvm.base.BaseViewHolder
+import com.example.practical.demomvvm.base.ItemOffsetDecoration
+
 
 class UsersListAdapter(val context: Context, rv: RecyclerView) :
     BaseRecyclerViewAdapter<BaseViewHolder, Users>(rv) {
@@ -41,11 +48,13 @@ class UsersListAdapter(val context: Context, rv: RecyclerView) :
         override fun onBind(position: Int) {
             val model = list[position]
             itemBinding!!.tvUserName.text = model!!.name
-            Glide
+           /* Glide
                 .with(context)
                 .load(model.image)
                 .centerCrop()
-                .into(itemBinding.ivUserImage)
+                .apply(RequestOptions.circleCropTransform())
+                .into(itemBinding.ivUserImage)*/
+            Glide.with(context).load(model.image).apply(RequestOptions().circleCrop()).into(itemBinding.ivUserImage)
 
             if (position % 2 == 0) {
                 // render even items
@@ -53,6 +62,9 @@ class UsersListAdapter(val context: Context, rv: RecyclerView) :
                 itemBinding.linodd.visibility = View.GONE
 
                 itemBinding.rvEven.layoutManager = GridLayoutManager(context, 2)
+                val itemDecoration =
+                    ItemOffsetDecoration(context, R.dimen.item_offset)
+                itemBinding.rvEven.addItemDecoration(itemDecoration)
                 var adapterRow: RowAdapter =
                     RowAdapter(
                         context,
@@ -78,14 +90,19 @@ class UsersListAdapter(val context: Context, rv: RecyclerView) :
                         arrList.add(model.items[i])
                     }
                 }
+
                 itemBinding.rvOdd.layoutManager = GridLayoutManager(context, 2)
+                val itemDecoration =
+                    ItemOffsetDecoration(context, R.dimen.item_offset)
+                itemBinding.rvOdd.addItemDecoration(itemDecoration)
                 var adapterRow: RowAdapter =
                     RowAdapter(
                         context,
                         itemBinding.rvOdd,
                         arrList
                     )
-                itemBinding.rvEven.adapter = adapterRow
+
+                itemBinding.rvOdd.adapter = adapterRow
             }
         }
     }

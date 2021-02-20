@@ -396,7 +396,7 @@ class NetworkCall constructor(context: Context) : Callback<ResponseBody> {
                     retrofitRawResponseListener!!.onSuccess(response.code(), jsonObject, body)
                 }
 
-                if (jsonObject.optInt("success") == 1 || jsonObject.optBoolean("success") == true) {
+                if (jsonObject.optBoolean("status") == true) {
                     if (retrofitResponseListener != null) {
                         retrofitResponseListener!!.onSuccess(
                             response.code(),

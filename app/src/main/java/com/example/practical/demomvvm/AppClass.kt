@@ -22,10 +22,10 @@ class AppClass : MultiDexApplication() {
         })
     }
 
-    /**
+  /*  *//**
      * For dynamic language change
      * @param base - default language
-     */
+     *//*
     override fun attachBaseContext(base: Context) { (base)
-    }
+    }*/
 }
